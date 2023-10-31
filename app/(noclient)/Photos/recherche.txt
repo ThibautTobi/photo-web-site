@@ -1,0 +1,172 @@
+Bien sûr, je peux vous aider à créer une page dynamique pour votre application Next.js 13. Pour créer une page dynamique dans Next.js 13, vous pouvez utiliser la récupération de données statique ou la récupération de données côté serveur. La génération statique est recommandée pour les performances et le référencement. La génération statique génère le HTML au moment de la construction et le réutilise à chaque demande. La génération côté serveur génère le HTML à chaque demande.
+
+Pour votre cas, vous pouvez créer une page dynamique pour chaque chemin que vous avez mentionné. Par exemple, pour créer une page dynamique pour `photo-web-site\app\(noclient)\Photos\[id]\page.tsx`, vous pouvez créer un fichier appelé `[id].tsx` dans le répertoire `pages/photos/`. Vous pouvez ensuite utiliser la récupération de données statique ou la récupération de données côté serveur pour récupérer les données nécessaires à partir d'une API ou d'une source de données externe.
+
+Voici un exemple de code pour une page dynamique dans le dossier `photos` :
+
+```tsx
+import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
+
+interface Photo {
+  id: string;
+  title: string;
+  description: string;
+}
+
+interface PhotoProps {
+  photo: Photo;
+}
+
+export default function PhotoPage({ photo }: PhotoProps) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <h1>{photo.title}</h1>
+      <p>{photo.description}</p>
+    </div>
+  );
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await fetch('https://my-api/photos');
+  const photos = await res.json();
+
+  const paths = photos.map((photo) => ({
+    params: { id: photo.id },
+  }));
+
+  return { paths, fallback: true };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const res = await fetch(`https://my-api/photos/${params.id}`);
+  const photo = await res.json();
+
+  return { props: { photo } };
+};
+```
+
+Dans cet exemple, nous avons créé une page dynamique pour afficher les détails d'une photo. Nous avons utilisé la récupération de données statique pour récupérer les données de l'API et les passer à la page via les props.
+
+J'espère que cela répond à votre question. N'hésitez pas à me poser des questions si vous avez besoin d'aide supplémentaire.
+
+Source : conversation avec Bing, 04/10/2023
+(1) Basic Features: Pages | Next.js. https://nextjs.org/docs/basic-features/pages.
+(2) Comment créer des routes dynamiques dans Next.js - lizengo.fr. https://lizengo.fr/programmation/creation-de-routes-dynamiques-nextjs/.
+(3) Routage dans Next.js - Un guide complet du débutant - Ibrahima Ndaw. https://www.ibrahima-ndaw.com/fr/blog/routing-in-nextjs/.
+(4) Créez des pages web dynamiques avec JavaScript - OpenClassrooms. https://openclassrooms.com/fr/courses/7697016-creez-des-pages-web-dynamiques-avec-javascript/7910981-preparez-votre-projet.
+(5) Routing: Dynamic Routes | Next.js. https://nextjs.org/docs/routing/dynamic-routes.
+(6) Rendering: Server-side Rendering (SSR) | Next.js. https://nextjs.org/docs/pages/building-your-application/rendering/server-side-rendering.
+(7) . https://bing.com/search?q=next+js+13+server+side+rendering.
+(8) Next.js 13 all pages are server-side render bug - Stack Overflow. https://stackoverflow.com/questions/74773404/next-js-13-all-pages-are-server-side-render-bug.
+(9) NextJS: Beginners guide to Server-Side Rendered Apps. https://blog.devgenius.io/nextjs-beginners-guide-to-server-side-rendered-apps-754c01e49c3a.
+(10) Advanced Features: Custom `App` | Next.js. https://nextjs.org/docs/advanced-features/custom-app.
+(11) . https://bing.com/search?q=next+js+13+app+directory.
+(12) NextJS 13 folder structure best practice - Stack Overflow. https://stackoverflow.com/questions/76214501/nextjs-13-folder-structure-best-practice.
+(13) Dynamic Routing In Next.js - Example | Better Programming. https://betterprogramming.pub/how-to-add-dynamic-navigation-to-next-js-using-the-pages-router-c70c76550857.
+(14) . https://bing.com/search?q=next+js+13+dynamic+routes.
+(15) Routing: Dynamic Routes | Next.js. https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes.
+(16) API Routes: Dynamic API Routes | Next.js. https://nextjs.org/docs/api-routes/dynamic-api-routes.
+(17) Advanced Features: Static HTML Export | Next.js. https://nextjs.org/docs/advanced-features/static-html-export.
+(18) . https://bing.com/search?q=next+js+13+static+generation.
+(19) Rendering: Static Site Generation (SSG) | Next.js. https://nextjs.org/docs/pages/building-your-application/rendering/static-site-generation.
+(20) Data Fetching: Incremental Static Regeneration | Next.js. https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration.
+(21) Static Generation with and without Data - Next.js. https://nextjs.org/learn/basics/data-fetching/with-data.
+(22) undefined. https://makerkit.dev/blog/tutorials/nextjs13.
+(23) undefined. https://beta.nextjs.org/docs/app-directory-roadmap.
+(24) undefined. https://stackoverflow.com/questions/74493702/how-to-use-next-mdx-with-nextjs-13-app-directory.
+(25) undefined. https://nextjs.org/docs/app/building-your-application/routing/colocation.
+(26) undefined. https://nextjs.org/docs/app/building-your-application/routing/defining-routes.
+(27) undefined. https://beta.nextjs.org/docs/routing/fundamentals.
+(28) undefined. https://blog.logrocket.com/react-server-components-next-js-13/.
+(29) undefined. https://nextjs.org/docs/pages/building-your-application/rendering.
+(30) undefined. https://beta.nextjs.org/docs/configuring/static-export.
+
+
+
+
+
+Oui, il existe d'autres façons de créer des pages dynamiques dans Next.js 13. Par exemple, vous pouvez utiliser la récupération de données côté client pour récupérer les données nécessaires à partir d'une API ou d'une source de données externe. La récupération de données côté client est effectuée par JavaScript sur le navigateur client, plutôt que par le serveur. Cela signifie que les données sont récupérées après le chargement initial de la page et peuvent être mises à jour dynamiquement sans rechargement de la page.
+
+Pour utiliser la récupération de données côté client, vous pouvez utiliser la méthode `useEffect` pour effectuer une requête HTTP à l'API ou à la source de données externe et mettre à jour l'état du composant en conséquence. Vous pouvez ensuite utiliser l'état mis à jour pour afficher les données dans votre page.
+
+Voici un exemple de code pour une page dynamique dans le dossier `photos` utilisant la récupération de données côté client :
+
+```tsx
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+
+interface Photo {
+  id: string;
+  title: string;
+  description: string;
+}
+
+export default function PhotoPage() {
+  const router = useRouter();
+  const [photo, setPhoto] = useState<Photo | null>(null);
+
+  useEffect(() => {
+    const { id } = router.query;
+
+    if (id) {
+      fetch(`/api/photos/${id}`)
+        .then((res) => res.json())
+        .then((data) => setPhoto(data));
+    }
+  }, [router.query]);
+
+  if (!photo) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <h1>{photo.title}</h1>
+      <p>{photo.description}</p>
+    </div>
+  );
+}
+```
+
+Dans cet exemple, nous avons utilisé la méthode `useEffect` pour effectuer une requête HTTP à l'API `/api/photos/[id]` et mettre à jour l'état du composant avec les données récupérées. Nous avons également utilisé l'état mis à jour pour afficher les données dans notre page.
+
+J'espère que cela répond à votre question. N'hésitez pas à me poser des questions si vous avez besoin d'aide supplémentaire.
+
+Source : conversation avec Bing, 04/10/2023
+(1) Basic Features: Pages | Next.js. https://nextjs.org/docs/basic-features/pages.
+(2) Comment créer des routes dynamiques dans Next.js - lizengo.fr. https://lizengo.fr/programmation/creation-de-routes-dynamiques-nextjs/.
+(3) Routage dans Next.js - Un guide complet du débutant - Ibrahima Ndaw. https://www.ibrahima-ndaw.com/fr/blog/routing-in-nextjs/.
+(4) Créez des pages web dynamiques avec JavaScript - OpenClassrooms. https://openclassrooms.com/fr/courses/7697016-creez-des-pages-web-dynamiques-avec-javascript/7910981-preparez-votre-projet.
+(5) Routing: Dynamic Routes | Next.js. https://nextjs.org/docs/routing/dynamic-routes.
+(6) Dynamic Routing In Next.js - Example | Better Programming. https://betterprogramming.pub/how-to-add-dynamic-navigation-to-next-js-using-the-pages-router-c70c76550857.
+(7) . https://bing.com/search?q=next+js+13+dynamic+routes.
+(8) Routing: Dynamic Routes | Next.js. https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes.
+(9) API Routes: Dynamic API Routes | Next.js. https://nextjs.org/docs/api-routes/dynamic-api-routes.
+(10) Rendering: Server-side Rendering (SSR) | Next.js. https://nextjs.org/docs/pages/building-your-application/rendering/server-side-rendering.
+(11) . https://bing.com/search?q=next+js+13+server+side+rendering.
+(12) Next.js 13 all pages are server-side render bug - Stack Overflow. https://stackoverflow.com/questions/74773404/next-js-13-all-pages-are-server-side-render-bug.
+(13) NextJS: Beginners guide to Server-Side Rendered Apps. https://blog.devgenius.io/nextjs-beginners-guide-to-server-side-rendered-apps-754c01e49c3a.
+(14) Advanced Features: Static HTML Export | Next.js. https://nextjs.org/docs/advanced-features/static-html-export.
+(15) . https://bing.com/search?q=next+js+13+static+generation.
+(16) Rendering: Static Site Generation (SSG) | Next.js. https://nextjs.org/docs/pages/building-your-application/rendering/static-site-generation.
+(17) Data Fetching: Incremental Static Regeneration | Next.js. https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration.
+(18) Static Generation with and without Data - Next.js. https://nextjs.org/learn/basics/data-fetching/with-data.
+(19) Advanced Features: Custom `App` | Next.js. https://nextjs.org/docs/advanced-features/custom-app.
+(20) . https://bing.com/search?q=next+js+13+app+directory.
+(21) NextJS 13 folder structure best practice - Stack Overflow. https://stackoverflow.com/questions/76214501/nextjs-13-folder-structure-best-practice.
+(22) undefined. https://makerkit.dev/blog/tutorials/nextjs13.
+(23) undefined. https://beta.nextjs.org/docs/app-directory-roadmap.
+(24) undefined. https://stackoverflow.com/questions/74493702/how-to-use-next-mdx-with-nextjs-13-app-directory.
+(25) undefined. https://nextjs.org/docs/app/building-your-application/routing/colocation.
+(26) undefined. https://nextjs.org/docs/app/building-your-application/routing/defining-routes.
+(27) undefined. https://beta.nextjs.org/docs/routing/fundamentals.
+(28) undefined. https://blog.logrocket.com/react-server-components-next-js-13/.
+(29) undefined. https://nextjs.org/learn/foundations/how-nextjs-works/rendering.
+(30) undefined. https://beta.nextjs.org/docs/configuring/static-export.
