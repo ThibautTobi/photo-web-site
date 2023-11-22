@@ -1,6 +1,131 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { connectToDB } from '@/utils/database';
-import Photo from '@/models/photo';
+ import { connectToDB } from '@/utils/database';
+// import Photo from '@/models/photo';
+// import { ObjectId } from 'mongodb';
+
+/**************************************************************************recuperation d'image par id  */
+import type { NextApiRequest, NextApiResponse } from 'next';
+import Photo from '@/models/photos';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { id } = req.query;
+console.log(id)
+  if (!id || typeof id !== 'string') {
+    res.status(400).json({ message: 'ID manquant ou invalide' });
+    return;
+  }
+
+          await connectToDB();
+  const photo = await Photo.findOne({ _id: id });
+//     const photoId = await Photo.findOne({ _id: new ObjectId(id as string) });
+//     const photo = await Photo.findById(new ObjectId(id as string));
+console.log(photo)
+  if (!photo) {
+    res.status(404).json({ message: 'Photo non trouvée' });
+    return;
+  }
+
+  res.status(200).json(photo);
+}
+
+
+
+// export async function GET(req: NextRequest) {
+//   // Vérification REQ Methode GET
+//   if (req.method !== 'GET') {
+//     return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
+//   }
+//   console.log('verification get passé')
+//   const id = req.nextUrl.searchParams.get('id');
+//   console.log(id)
+
+//   if (!id) {
+//     return NextResponse.json({ error: 'pas de photo avec  ette ID' },{status: 400 });
+//   }
+
+//   try {
+//     // Remplacez par votre propre logique de connexion à la base de données
+//      await connectToDB();
+//      console.log('connection db')
+//     const photoId = await Photo.findOne({ _id: new ObjectId(id as string) });
+//     const photo = await Photo.findById(new ObjectId(id as string));
+//     console.log(photoId)
+//     console.log(photo)
+
+//     if (!photoId) {
+//       return NextResponse.json({ error: 'Photo not found' },{status: 404});
+//     }
+
+//     // Modifiez l'URL de l'image si nécessaire
+//     // photoId.imagePath = `${photoId.imagePath.replace('./uploads', '')}`;
+
+//     return NextResponse.json({photoId},{status: 200});
+//   } catch (error) {
+//     return new NextResponse(JSON.stringify({ error: 'Server error' }), {
+//       status: 500,
+//       // headers: {
+//       //   'Content-Type': 'application/json',
+//       // },
+//     });
+//   }
+// }
+
+
+
+
+
+// import { NextRequest, NextResponse } from 'next/server';
+// import { connectToDB } from '@/utils/database';
+// import Photo from '@/models/photo';
+// import { ObjectId } from 'mongodb';
+
+
+// export async function GET(req: NextRequest) {
+//   // const { searchParams } = new URL(req.url);
+//   // console.log(searchParams)
+//     // Vérification REQ Methode GET
+//     if (req.method !== 'GET') {
+//       return NextResponse.json({ error: 'Method not allowed' }, { status: 405 });
+//     }
+//     console.log('verification get passé')
+//     //const id = req.nextUrl.searchParams.get('id');
+//     // console.log(id)
+  
+//     // if (!id) {
+//     //   return NextResponse.json({ error: 'pas de photo avec  ette ID' },{status: 400 });
+//     // }
+
+//     try {
+//       const {id} = req.query;
+
+//       console.log(id)
+//       // Remplacez par votre propre logique de connexion à la base de données
+//        await connectToDB();
+//        console.log('connection db')
+
+//       //const photoId = await Photo.findOne({ _id: new ObjectId(id as string) });
+//       const photo = await Photo.findById(new ObjectId(id as string));
+//       //console.log(photoId)
+//       console.log(photo)
+  
+//       if (!photo) {
+//         return NextResponse.json({ error: 'Photo not found' },{status: 404});
+//       }
+  
+//       // Modifiez l'URL de l'image si nécessaire
+//       // photoId.imagePath = `${photoId.imagePath.replace('./uploads', '')}`;
+  
+//       return NextResponse.json({photo},{status: 200});
+//     } catch (error) {
+//       return new NextResponse(JSON.stringify({ error: 'Server error' }), {
+//         status: 500,
+//         // headers: {
+//         //   'Content-Type': 'application/json',
+//         // },
+//       });
+//     }
+//   }
+
 
 /**
  * Gère la requête GET pour récupérer une image spécifique par ID.

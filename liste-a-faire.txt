@@ -1,6 +1,0 @@
-- finir partie no client
- loading / gestion erreur / gestion dynamique de chaque photos / partie connexion 
-
-- partie admin crud api géré les donnés pour clients et site web / espace todoliste avec deadline...  et rendez vous
-
-- partie client espace pour pouvoir selectionner les images quel souhaite retoucher avec gestion decompte et espace image retoucher

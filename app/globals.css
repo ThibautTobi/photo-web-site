@@ -5,3 +5,13 @@
 body{
   background-color: white;
 }
+
+/* Personnaliser TextField */
+.MuiTextField-root .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: #f87171; /* Couleur rose pour la bordure */
+}
+
+.MuiTextField-root .MuiInputLabel-outlined.Mui-focused {
+  color: #f87171; /* Couleur rose pour le label lorsqu'il est focus */
+}
+

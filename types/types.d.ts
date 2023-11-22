@@ -1,4 +1,12 @@
+import { type } from "os";
+
+export interface FormData {
+    identifiant: string,
+    password: string,
+  }
+
 export interface Ilogin {
+    email:string,
     name:string,
     password:string,
     role?: 'user' | 'admin';
@@ -15,10 +23,44 @@ export interface Iphotos {
     imagePath : string 
 }
 
+export interface DataPhotos {
+    photos : Iphotos[],
+    totalPhotos : number,
+    totalPages : number,
+}
+export interface JwtPayload {
+    role?: string;
+    userId: string;
+  }
+// export type ApiResponse = {
+//     photos: Iphotos[],
+//     totalPhotos: number
+//   }
+  
 // export interface RoleContextType {
 //     user: IuserRole | null;
 //     setUser: React.Dispatch<React.SetStateAction<IuserRole | null>>;
 //   }
+export interface ShootingData {
+    title: string;
+    imagePath: string[];
+}
+
+
+export interface Ishooting {
+    _id: mongoose.Types.ObjectId;
+    title : String,
+    imagePath : String[],
+}
+
+export interface Inewsletter{
+    email:String,
+    dateSubscribed:Date
+        
+}
+export interface Subscriber {
+    email: string;
+  }
 
 export interface RoleContextType {
     user: IRoleOnly | null;
@@ -39,6 +81,10 @@ export interface IRoleOnly {
     role: 'user' | 'admin';
 }
 
+export interface Iadmin{
+    name :String,
+    password : String
+}
 
 export interface Itest {
     name: string

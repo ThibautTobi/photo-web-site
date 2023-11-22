@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+/******************************************************************************************* deconnection ans next auth avec suppresion des cookies */
 export function POST(req: NextRequest, res: NextResponse) {
     if (req.method === 'POST') {
 

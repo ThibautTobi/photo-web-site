@@ -2,6 +2,7 @@ import { connectToDB } from "@/utils/database";
 import { NextRequest, NextResponse } from 'next/server';
 import Test from "@/models/test";
 
+/***************************************************************************test base de donnée */
 export async function POST (req: NextRequest) {
     
     if (req.method === 'POST') {

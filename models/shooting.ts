@@ -1,18 +1,20 @@
-// import mongoose from "mongoose";
+import { Ishooting } from '@/types/types';
+import { Schema, model, models } from 'mongoose';
 
-// const shooting = new mongoose.Schema({
+const ShootingSchema = new Schema<Ishooting>({
+     // _id: ObjectID,
+    title : {
+        type : String ,
+        required : true
+    },
+    imagePath : [{
+        type : String,
+        required :true
+    }]
+}
+)
+const Shooting = models.Shooting || model<Ishooting>('Shooting', ShootingSchema);
 
-//     name : {
-//         type : String ,
-//         required : true
-//     },
-//     surname : {
-//         type : String,
-//         required : true
-//     },
-//     image : {
-//         type : String,
-//         required :true
-//     }
-// }
-// )
+export default Shooting;
+
+

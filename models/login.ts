@@ -1,22 +1,36 @@
-import { Schema, model, models } from 'mongoose'
+import { Schema, model, models } from 'mongoose';
 import { Ilogin } from '@/types/types';
 
 const loginSchema = new Schema<Ilogin>({
-  name :{
+  email: {
     type: String,
-    required: true
+    unique: true,
+    sparse: true, // Permet les valeurs `null` dans l'index unique
+  },
+  name: {
+    type: String,
+    unique: true,
+    sparse: true, // Permet les valeurs `null` dans l'index unique
   },
   password: {
-    type : String,
-    required: true
+    type: String,
+    required: true,
   },
   role: {
     type: String,
-    enum: ['user', 'admin'],  // Seuls 'user' et 'admin' sont autorisés
-    default: 'user'           // Par défaut, le rôle sera 'user'
-  }
-})
+    enum: ['user', 'admin'],
+    default: 'user',
+  },
+});
 
-const Login = models.login || model<Ilogin>('login', loginSchema)
+// Validation personnalisée pour s'assurer qu'au moins un des champs est fourni
+loginSchema.pre('validate', function (next) {
+  if (!this.email && !this.name) {
+    this.invalidate('email', 'Email or Username is required.');
+  }
+  next();
+});
+
+const Login = models.login || model<Ilogin>('login', loginSchema);
 
 export default Login;

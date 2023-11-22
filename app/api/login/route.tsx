@@ -2,52 +2,53 @@ import Login from '@/models/login';
 import { connectToDB } from '@/utils/database';
 import { NextResponse, NextRequest } from 'next/server';
 import bcrypt from 'bcrypt';
-import * as yup from 'yup';
+import jwt from 'jsonwebtoken';
 
+/********************************************************************* Login sans next auth et ajout de cookis avec role et token */
 export const POST = async(req: NextRequest) => {
     try {
         await connectToDB();
 
         const { name, password } = await req.json();
 
-        // Votre schéma de validation
-        const validationSchema = yup.object({
-            name: yup.string().required('Le nom est requis'),
-            password: yup.string()
-                .min(8, 'Le mot de passe doit avoir au moins 8 caractères')
-                .matches(/\d/, 'Le mot de passe doit contenir au moins un chiffre')
-                .matches(/[!@#$%^&*()\-_"'{}[\]:;<>,.?~\\/+|=]/, 'Le mot de passe doit contenir au moins un caractère spécial')
-                .required('Le mot de passe est requis'),
+        const user = await Login.findOne({ name: name });
+        if (!user) {
+            return NextResponse.json({ message: "Nom d'utilisateur introuvable." }, { status: 404 });
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return NextResponse.json({ message: "Mot de passe incorrect." }, { status: 401 });
+        }
+
+        // Génération du token JWT
+        const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET as string, { expiresIn: '1h' });
+
+        
+        const response = NextResponse.json({ message: 'Connecté avec succès.', redirectTo: '/'  });
+
+
+        // Cookie authToken pour l'autorisation JWT (côté serveur)
+        response.cookies.set('authToken', token, {
+            httpOnly: true,//lorsque cette option est définie sur true, le cookie ne peut pas être accédé via JavaScript côté client. Cela est essentiel pour les cookies de sécurité comme les JWT pour éviter les attaques de type cross-site scripting (XSS).
+            // secure: process.env.NODE_ENV === 'development',// lorsque cette option est définie sur true, le cookie ne sera envoyé que sur des connexions HTTPS. C'est une bonne pratique pour garantir que le cookie (en particulier un JWT) n'est pas exposé lors de la transmission sur un réseau non sécurisé.
+            sameSite: 'strict',// le cookie est envoyé au serveur uniquement lorsque la demande provient du même site
+            maxAge: 3600, // 1 heure
+            path: '/',// accés a tous le site 
         });
 
-        // Vérification des données avec Yup
-        await validationSchema.validate({ name, password });
+        // Cookie userRole pour la vérification des rôles (côté client)
+        response.cookies.set('userRole', user.role, {
+            // secure: process.env.NODE_ENV === 'development',
+            sameSite: 'strict',
+            maxAge: 3600, // 1 heure
+            path: '/',
+        });
 
-
-        // Vérification de l'unicité du nom d'utilisateur
-        const existingUser = await Login.findOne({ name: name });
-        // seul l'administrateur voi la reponse donc réponse moin generique !
-        if (existingUser) {
-            return NextResponse.json({ message: `Le nom d'utilisateur est déjà pris.` }, { status: 400 });
-        }
-        
-        // Validation des entrées
-        if (!name || typeof name !== 'string' || !password || typeof password !== 'string') {
-            return NextResponse.json("Nom d'utilisateur ou mot de passe invalide", { status: 400 });
-        }
-
-        // Hashage des mots de passe
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const newLogin = new Login({ name, password: hashedPassword });
-        await newLogin.save();
-
-        return NextResponse.json({ message: 'Utilisateur créé avec succès' }, { status: 201 });
+        return response
 
     } catch (error) {
-        // Journalisation
-        console.error("Erreur lors de la création de l'utilisateur:", error);
-
-        return NextResponse.json("Une erreur est survenue lors de la création de l'utilisateur.", { status: 500 });
+        console.error("Erreur lors de la connexion:", error);
+        return NextResponse.json("Une erreur est survenue lors de la connexion.", { status: 500 });
     }
 }
