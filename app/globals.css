@@ -2,26 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+body{
+  background-color: white;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* Personnaliser TextField */
+.MuiTextField-root .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: #f87171; /* Couleur rose pour la bordure */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.MuiTextField-root .MuiInputLabel-outlined.Mui-focused {
+  color: #f87171; /* Couleur rose pour le label lorsqu'il est focus */
+}
+
+/* Personnalisation des TextField */
+.MuiTextField-root {
+  /* Couleur de la bordure en état normal */
+  border-color: #ff4081;
+}
+
+.Mui-focused .MuiOutlinedInput-notchedOutline {
+  /* Couleur de la bordure en état focus */
+  border-color: #ff4081;
+}
+
+.Mui-error .MuiOutlinedInput-notchedOutline {
+  /* Couleur de la bordure en état d'erreur */
+  border-color: #f44336;
+}
+
+.MuiInputLabel-root.Mui-focused {
+  /* Couleur du label en état focus */
+  color: #ff4081;
 }
