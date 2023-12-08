@@ -6,6 +6,7 @@ export default function Footer () {
         <footer className="w-100% h-auto bg-rose-300 text-white flex flex-row justify-around font-bold text-lg p-6">
             <h2 className="m-4">pied de page ...</h2>
             <NewsletterSignup /> 
+            <p>© 2023 Agence de Photographie. Tous droits réservés.</p>
         </footer>
     )
 }

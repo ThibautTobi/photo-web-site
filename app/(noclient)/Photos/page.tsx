@@ -4,7 +4,7 @@ import Link from "next/link";
 import useSWR from 'swr';
 import { DataPhotos } from "@/types/types";
 import { Suspense,useEffect,useState } from "react";
-
+import PhotoLoadingSkeleton from '@/components/Layout/PhotoLoadingSkeleton';
 /************************************************************** page site portfolio photos    */
 /************************************************** fonctionne gestion des images cotés back end */
 
@@ -49,7 +49,7 @@ export default function Photos() {
       <p className="m-4 p-4 bg-red-400 text-white font-bold">retrouver une présentation de mon travaille avec {totalPhotos} photos </p>
       <div>
         {photos.map((photo) => (
-          <Suspense key={photo._id} fallback={<p>Chargement de la photo...</p>}>
+          <Suspense key={photo._id} fallback={<PhotoLoadingSkeleton />}>
             <Link key={photo._id} href={`/photos/${photo._id}`}>
               <div className="photo-container">
                 <h3>{photo.title}</h3>

@@ -29,6 +29,7 @@ export default async function RootLayout({ children }
           {/* <RoleProvider> */}
             <Header />
               <main className="flex min-h-screen flex-col items-center justify-between p-24">
+                {/*   radial-gradient(at left top, rgb(255, 255, 255), rgb(244, 114, 182), rgb(136, 19, 55)) */}
                 {children}
               </main>
             <Footer />

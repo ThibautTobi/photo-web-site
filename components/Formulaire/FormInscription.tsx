@@ -88,10 +88,10 @@
 /************************************************************************************ version soit name ou email avec confirmation mot de passe */
 
 import { useState } from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, Controller, SubmitHandler} from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TextField, Button, CircularProgress } from '@mui/material';
+import { Grid, TextField, Button, CircularProgress } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 interface FormData {
@@ -131,16 +131,16 @@ const validationSchema = yup.object({
 export default function FormInscription () {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { control, handleSubmit, formState: { errors, isValid, isDirty, touchedFields } } = useForm<FormData>({
+  const { control, handleSubmit, formState: { errors, isValid, isDirty, touchedFields }, getValues } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
   });
 
   const showValidationIcon = (fieldName: FieldName) => {
-    return touchedFields[fieldName] && !errors[fieldName];
+    const fieldValue = getValues(fieldName);
+    return touchedFields[fieldName] && !errors[fieldName] && fieldValue && fieldValue.length > 0;
   };
   
-
   // Gestion de l'envoi du formulaire
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setLoading(true);
@@ -188,70 +188,129 @@ console.log('response : ',response)
 
     setLoading(false);
   };
+/***************************************** sans grosse modification de style */
+  // return (
+  //   <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto bg-white p-6 rounded shadow flex flex-col items-center">
+  //     <h2 className="text-xl font-bold mb-4 text-center">Inscription</h2>
+  //     {error && <p className="text-red-500 text-center">{error}</p>}
+
+  //     <div className="flex items-center mb-4">
+  //       <Controller
+  //         name="name"
+  //         control={control}
+  //         defaultValue=""
+  //         render={({ field }) => (
+  //           <TextField {...field} type="text" label="Nom" className={`form-input ${errors.name ? 'border-red-500' : 'border-gray-300'}`} />
+  //         )}
+  //       />
+  //       {/* {!errors.name && <CheckCircleIcon className="text-green-500 ml-2" />} */}
+  //       {showValidationIcon("name") && <CheckCircleIcon className="text-green-500 ml-2" />}
+  //     </div>
+
+  //     <div className="flex items-center mb-4">
+  //       <Controller
+  //         name="email"
+  //         control={control}
+  //         defaultValue=""
+  //         render={({ field }) => (
+  //           <TextField {...field} type="email" label="Email" className={`form-input ${errors.email ? 'border-red-500' : 'border-gray-300'}`} />
+  //         )}
+  //       />
+  //       {/* {!errors.email && <CheckCircleIcon className="text-green-500 ml-2" />} */}
+  //       {showValidationIcon("email") && <CheckCircleIcon className="text-green-500 ml-2" />}
+  //     </div>
+
+  //     <div className="flex items-center mb-4">
+  //       <Controller
+  //         name="password"
+  //         control={control}
+  //         defaultValue=""
+  //         render={({ field }) => (
+  //           <TextField {...field} type="password" label="Mot de passe" autoComplete="off" error={!!errors.password} helperText={errors.password?.message} />
+  //         )}
+  //       />
+  //       {/* {!errors.password && <CheckCircleIcon className="text-green-500 ml-2" />} */}
+  //       {showValidationIcon("password") && <CheckCircleIcon className="text-green-500 ml-2" />}
+  //     </div>
+
+  //     <div className="flex items-center mb-6">
+  //       <Controller
+  //         name="confirmPassword"
+  //         control={control}
+  //         defaultValue=""
+  //         render={({ field }) => (
+  //           <TextField {...field} type="password" label="Confirmer le mot de passe" autoComplete="off" error={!!errors.confirmPassword} helperText={errors.confirmPassword?.message} />
+  //         )}
+  //       />
+  //       {/* {!errors.confirmPassword && <CheckCircleIcon className="text-green-500 ml-2" />} */}
+  //       {showValidationIcon("confirmPassword") && <CheckCircleIcon className="text-green-500 ml-2" />}
+  //     </div>
+
+
+  //     <Button type="submit" variant='outlined' className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600" disabled={!isValid || loading}>
+  //       {loading ? <CircularProgress size={24} /> : 'Inscription'}
+  //     </Button>
+  //   </form>
+  // );
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto bg-white p-6 rounded shadow">
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto bg-slate-100 p-6 rounded shadow-lg">
       <h2 className="text-xl font-bold mb-4 text-center">Inscription</h2>
       {error && <p className="text-red-500 text-center">{error}</p>}
-
-      <div className="flex items-center mb-4">
-        <Controller
-          name="name"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField {...field} type="text" label="Nom" className={`form-input ${errors.name ? 'border-red-500' : 'border-gray-300'}`} />
-          )}
-        />
-        {!errors.name && <CheckCircleIcon className="text-green-500 ml-2" />}
-        {showValidationIcon("name") && <CheckCircleIcon className="text-green-500 ml-2" />}
-      </div>
-
-      <div className="flex items-center mb-4">
-        <Controller
-          name="email"
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <TextField {...field} type="email" label="Email" className={`form-input ${errors.email ? 'border-red-500' : 'border-gray-300'}`} />
-          )}
-        />
-        {!errors.email && <CheckCircleIcon className="text-green-500 ml-2" />}
-        {showValidationIcon("email") && <CheckCircleIcon className="text-green-500 ml-2" />}
-      </div>
-
-      <div className="flex items-center mb-4">
-  <Controller
-    name="password"
-    control={control}
-    defaultValue=""
-    render={({ field }) => (
-      <TextField {...field} type="password" label="Mot de passe" autoComplete="off" error={!!errors.password} helperText={errors.password?.message} />
-    )}
-  />
-  {!errors.password && <CheckCircleIcon className="text-green-500 ml-2" />}
-  {showValidationIcon("password") && <CheckCircleIcon className="text-green-500 ml-2" />}
-</div>
-
-<div className="flex items-center mb-6">
-  <Controller
-    name="confirmPassword"
-    control={control}
-    defaultValue=""
-    render={({ field }) => (
-      <TextField {...field} type="password" label="Confirmer le mot de passe" autoComplete="off" error={!!errors.confirmPassword} helperText={errors.confirmPassword?.message} />
-    )}
-  />
-  {!errors.confirmPassword && <CheckCircleIcon className="text-green-500 ml-2" />}
-  {showValidationIcon("confirmPassword") && <CheckCircleIcon className="text-green-500 ml-2" />}
-</div>
-
-
-      <Button type="submit" variant='outlined' className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600" disabled={!isValid || loading}>
-        {loading ? <CircularProgress size={24} /> : 'Inscription'}
-      </Button>
+  
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Controller
+            name="name"
+            control={control}
+            render={({ field }) => (
+              <TextField {...field} fullWidth label="Nom" error={!!errors.name} helperText={errors.name?.message} />
+            )}
+          />
+          {showValidationIcon("name") && <CheckCircleIcon className="text-green-500" />}
+        </Grid>
+  
+        <Grid item xs={12}>
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => (
+              <TextField {...field} fullWidth type="email" label="Email" error={!!errors.email} helperText={errors.email?.message} />
+            )}
+          />
+          {showValidationIcon("email") && <CheckCircleIcon className="text-green-500" />}
+        </Grid>
+  
+        <Grid item xs={12}>
+          <Controller
+            name="password"
+            control={control}
+            render={({ field }) => (
+              <TextField {...field} fullWidth type="password" label="Mot de passe" autoComplete="off" error={!!errors.password} helperText={errors.password?.message} />
+            )}
+          />
+          {showValidationIcon("password") && <CheckCircleIcon className="text-green-500" />}
+        </Grid>
+  
+        <Grid item xs={12}>
+          <Controller
+            name="confirmPassword"
+            control={control}
+            render={({ field }) => (
+              <TextField {...field} fullWidth type="password" label="Confirmer le mot de passe" autoComplete="off" error={!!errors.confirmPassword} helperText={errors.confirmPassword?.message} />
+            )}
+          />
+          {showValidationIcon("confirmPassword") && <CheckCircleIcon className="text-green-500" />}
+        </Grid>
+  
+        <Grid item xs={12}>
+          <Button type="submit" fullWidth variant="contained" color="primary" disabled={!isValid || loading}>
+            {loading ? <CircularProgress size={24} /> : 'Inscription'}
+          </Button>
+        </Grid>
+      </Grid>
     </form>
-  );
+  )
 }
 
 
