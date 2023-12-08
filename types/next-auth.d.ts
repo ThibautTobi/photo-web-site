@@ -1,8 +1,15 @@
 import "next-auth";
 
 declare module "next-auth" {
+  // interface User {
+  //   role?: string;
+  // }
+
   interface User {
-    role?: string;
+    id: string;
+    name: string;
+    email: string;
+    role: string;
   }
 
   interface Session {
@@ -11,14 +18,12 @@ declare module "next-auth" {
     } & DefaultSession["user"];
   }
 
-  interface JWT {
-    role?: string;
-  }
+  // interface JWT {
+  //   role?: string;
+  // }
 
- interface User {
-      id: string;
-      email: string;
-      name: string;
-      role: string;
+  interface JWTToken {
+      role?: string;
+      sub?: string; // Subject (ID de l'utilisateur)
     }
   }

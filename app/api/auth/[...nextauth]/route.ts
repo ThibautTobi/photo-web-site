@@ -1,55 +1,75 @@
 import Login from "@/models/login";
 import { connectToDB } from "@/utils/database";
-import NextAuth from "next-auth"
+import NextAuth, { JWTToken } from "next-auth"
 
-//import Providers from "next-auth/providers"
 import CredentialsProvider from "next-auth/providers/credentials"
-//import EmailProvider from "next-auth/providers/email"
+import EmailProvider from "next-auth/providers/email"
 import bcrypt from 'bcrypt';
 import { login } from "@/types/types";
-// import GoogleProvider from "next-auth/providers/google"
-// import FacebookProvider from "next-auth/providers/facebook"
-// import GitHubProvider from "next-auth/providers/github"
+
+//import GoogleProvider from "next-auth/providers/google"
+import GitHubProvider from "next-auth/providers/github"
+import nodemailer from "nodemailer"
+import { Session, User } from "next-auth/core/types";
 // import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 
 
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-}
-
-interface JWTToken {
-  role?: string;
-  sub?: string; // Subject (ID de l'utilisateur)
-  // Ajoutez d'autres propriétés JWT si nécessaire
-}
-
-interface Session {
-  user: User;
-}
-
-
-
-// Type pour les informations de l'utilisateur
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-}
-
-// Type pour le Token JWT
-interface JWTToken {
-  role?: string;
-  sub?: string; // Subject (ID de l'utilisateur)
-  // Ajoutez d'autres propriétés JWT si nécessaire
-}
-
 export const authOptions : any = {
   providers: [
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_CLIENT_ID,
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    // }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    }),
+    // EmailProvider({
+    //   server: {
+    //     server: {
+    //       host: process.env.SMTP_HOST,
+    //       port: process.env.SMTP_PORT,
+    //       auth: {
+    //         user: process.env.SMTP_USER,
+    //         pass: process.env.SMTP_PASSWORD,
+    //       },
+        //secure: true, // true pour le port 465, false pour les autres ports
+      // },
+      // from: process.env.EMAIL_FROM,
+      // sendVerificationRequest: ({
+      //   identifier: email,
+      //   url,
+      //   token,
+      //   baseUrl,
+      //   provider,
+      // }) => {
+      //   const { host } = new URL(baseUrl)
+      //   const transporter = nodemailer.createTransport({
+      //     host: provider.server.host,
+      //     port: provider.server.port,
+      //     auth: {
+      //       user: provider.server.auth.user,
+      //       pass: provider.server.auth.pass,
+      //     },
+      //     secure: provider.server.secure,
+      //   })
+
+      //   return transporter.sendMail({
+      //     to: email,
+      //     from: provider.from,
+      //     subject: `Votre lien de connexion pour ${host}`,
+      //     html: `<p>Utilisez le lien suivant pour vous connecter à <strong>${host}</strong>:</p><p><a href="${url}">${url}</a></p><p>Le lien expirera dans 24 heures.</p>`,
+      //     text: `Utilisez le lien suivant pour vous connecter à ${host}: ${url}\nLe lien expirera dans 24 heures.`,
+      //     // <div style="color: #333; font-family: Arial, sans-serif;">
+      //     //   <h1>Bienvenue sur NotreSite!</h1>
+      //     //   <p>Pour compléter votre inscription, veuillez cliquer sur le lien ci-dessous :</p>
+      //     //   <a href="{{url}}" style="color: #1a73e8;">Confirmer mon adresse email</a>
+      //     //   <p>Merci de nous rejoindre!</p>
+      //     // </div>
+
+      //   })
+      //},
+    //}),
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -93,63 +113,7 @@ export const authOptions : any = {
   //   strategy: 'database',
   //   maxAge: 1 * 24 * 60 * 60, // 1 jour
   // },
-  
-  // callbacks: {
-    // async jwt({ token, user }: { token: JWTToken, user?: User }) {
-    //   if (user) {
-    //     token.role = user.role;
-    //   }
-    //   return token;
-    // },
-    // // async session({ session, token }: { session: { user: User }, token: JWTToken }) {
-    // //   if (session.user) {
-    // //     session.user.role = token.role;
-    // //   }
-    // //   return session;
-    // // }
 
-    // callbacks: {
-    //   async jwt({ token, user }: { token: JWTToken, user?: User }) {
-    //     if (user && user.role) { // Vérifiez que user et user.role ne sont pas undefined
-    //       token.role = user.role;
-    //     }
-    //     return token;
-    //   },
-    //   async session({ session, token }: { session: Session, token: JWTToken }) {
-    //     if (session.user && token.role) { // Vérifiez que session.user et token.role ne sont pas undefined
-    //       session.user.role = token.role;
-    //     }
-    //     return session;
-    //   }
-    // }
-    // callbacks: {
-    //   async jwt({ token, user }: { token: JWTToken, user?: User }) {
-    //     if (user) {
-    //       token.role = user.role;
-    //     }
-    //     return token;
-    //   },
-    //   async session({ session, token }: { session: Session, token: JWTToken }) {
-    //     if (token.role) {
-    //       session.user.role = token.role;
-    //     }
-    //     return session;
-    //   }
-    // },
-      
-    
-//},
-  
-  // if (!process.env.NEXTAUTH_SECRET) {
-  //   throw new Error('NEXTAUTH_SECRET is not set');
-  // }
-  
-  // a modifier pour le production
- // secret: process.env.NEXTAUTH_SECRET || 'default-secret',
-//   secret: process.env.NEXTAUTH_SECRET,
-  
-
-// };
 
 
 callbacks: {
