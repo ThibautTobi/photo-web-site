@@ -14,12 +14,6 @@ export default async function Administration (){
 
 const session : any = await getServerSession(authOptions);
 
-// const { data: session, status } = useSession();
-
-//     if (status === 'loading') {
-//     return <p>Chargement...</p>;
-//     }
-
     if (!session) {
         console.log("Non connecté");
         redirect("/") 

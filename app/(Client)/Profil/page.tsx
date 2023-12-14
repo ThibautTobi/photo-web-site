@@ -11,22 +11,24 @@ export default function Profile() {
     if (status === 'loading') {
     return <p>Chargement...</p>;
     }
-    if (!session){
-      console.log(session)
-      redirect('/')
-    }
 
-    // if (!session) {
-    //     console.log("Non connecté");
-    //     redirect("/") 
-    // } else if(session.user.role !== 'user'){
-    // console.log("Connecté en tant que", session.user, session.expires);
-    // console.log('user role :', session.user.role);
-    // console.log('pas égale a user')
-    // redirect("/")
-    // }else {
-    //     console.log('égale a user')
+    // if (!session){
+    //   console.log(session)
+    //   redirect('/')
     // }
+
+    if (!session) {
+        console.log("Non connecté");
+        redirect("/") 
+    } else if(session.user.role !== 'user'){
+    console.log("Connecté en tant que", session.user, session.expires);
+    console.log('user role :', session.user.role);
+    console.log('pas égale a user')
+    redirect("/")
+    }else {
+        console.log('égale a user')
+    }
+    
   return (
     <>
         <h1>Votre Profil</h1>

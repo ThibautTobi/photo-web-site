@@ -14,7 +14,7 @@ export default function DashboardNewsletter() {
   const [isEditing, setIsEditing] = useState<string | null>(null);
   const [selectAll, setSelectAll] = useState<boolean>(false);
 
-  
+    /********* verification connexion cotés client NextAuht */
     const { data: session, status } = useSession();
 
     if (status === 'loading') {

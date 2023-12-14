@@ -119,11 +119,11 @@ console.log('resultat recu : ', result)
           />
         </Grid>
 
-        {/* <Grid item xs={12}>
+        <Grid item xs={12}>
           <Button type="submit" fullWidth variant="contained" color="primary">
             Se Connecter
           </Button>
-        </Grid> */}
+        </Grid>
 
         <Grid item xs={12} style={{ textAlign: 'center' }}>
           <p>ou</p>
