@@ -6,105 +6,106 @@
   background-color: white;
 } */
 
-/*********************************** Personnaliser TextField */
+/***********************************
+   Personnaliser TextField
+***********************************/
+/* Couleur de la bordure pour TextField */
 .MuiTextField-root .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
   border-color: #f87171; /* Couleur rose pour la bordure */
 }
 
+/* Couleur du label lorsqu'il est focus */
 .MuiTextField-root .MuiInputLabel-outlined.Mui-focused {
   color: #ff4081; /* Couleur rose plus intense pour le label lorsqu'il est focus */
 }
 
+/* Couleur de la bordure en état d'erreur */
 .MuiTextField-root .Mui-error .MuiOutlinedInput-notchedOutline {
   border-color: #ff1100b8; /* Couleur de la bordure en état d'erreur */
 }
 
-/* Mui Bouton */
+/***********************************
+   Mui Bouton
+***********************************/
+/* Couleur de fond pour Button */
 .MuiButton-root {
   background-color: #ff4081; /* Couleur de fond */
 }
 
+/* Couleur au survol pour Button */
 .MuiButton-root:hover {
   background-color: rgba(255, 64, 128, 0.515); /* Couleur au survol */
 }
 
-/* Mui RadioGroup et FormControlLabel */
+/***********************************
+   Mui RadioGroup et FormControlLabel
+***********************************/
+/* Couleur du texte pour les labels */
 .MuiFormControlLabel-root {
   color: #333; /* Couleur du texte des labels */
 }
 
+/* Couleur par défaut des boutons radio */
 .MuiRadio-root {
   color: #f87171; /* Couleur par défaut des boutons radio */
 }
 
+/* Couleur des boutons radio lorsqu'ils sont sélectionnés */
 .MuiRadio-root.Mui-checked {
   color: #ff4081; /* Couleur des boutons radio lorsqu'ils sont sélectionnés */
 }
 
+/* Couleur de fond au survol pour les boutons radio */
 .MuiRadio-root:hover {
   background-color: rgba(248, 113, 113, 0.04); /* Couleur de fond au survol */
 }
 
+/* Couleur des boutons radio désactivés */
 .MuiRadio-root.Mui-disabled {
   color: #ccc; /* Couleur des boutons radio désactivés */
 }
 
+/* Couleur de fond lorsqu'ils sont focus pour les boutons radio */
 .MuiRadio-root.Mui-focusVisible {
   background-color: rgba(248, 113, 113, 0.12); /* Couleur de fond lorsqu'ils sont focus */
 }
 
-/* Mui Select et MenuItem */
+/***********************************
+   Mui Select et MenuItem
+***********************************/
+/* Couleur pour le label de Select */
 .MuiInputLabel-root {
   color: #f87171; /* Couleur rose pour le label */
 }
 
-.MuiInputLabel-root .Mui-focused {
-  color: #ff4081; /* Couleur rose plus intense lorsque le Select est focus */
-}
-
+/* Couleur du texte dans le Select */
 .MuiSelect-root {
   color: #f87171; /* Couleur du texte dans le Select */
 }
 
-.MuiSelect-root .Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #ff4081; /* Couleur rose plus intense pour la bordure lorsque le Select est focus */
-}
-
-.MuiMenuItem-root {
-  color: #f87171; /* Couleur du texte pour les options */
-}
-
+/* Couleur de la flèche pour Select */
 .MuiSelect-icon {
   color: #f87171; /* Couleur rose pour la flèche */
 }
 
-.MuiSelect-icon.Mui-focused {
-  color: #ff4081; /* Couleur rose plus intense pour la flèche lorsqu'elle est focus */
+/* Couleur du texte pour les options de Select */
+.MuiMenuItem-root {
+  color: #f87171; /* Couleur du texte pour les options */
 }
 
-
-/* Personnalisation de la bordure du Select en état normal */
-.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+/* Couleur de la bordure pour Select en état normal et focus */
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline,
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
   border-color: #f87171; /* Couleur rose pour la bordure */
 }
 
-/* Personnalisation de la bordure du Select lorsqu'il est focus */
-.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #ff4081; /* Couleur rose plus intense pour la bordure */
-}
-
-/* Modifier la couleur du label lorsqu'il est focus */
+/* Couleur du label en état normal et focus pour Select */
+.MuiInputLabel-root,
 .MuiInputLabel-root.Mui-focused {
-  color: #f87171; /* Remplacez ceci par la couleur de votre choix */
+  color: #f87171; /* Couleur rose pour le label */
 }
 
-/* Conserver la couleur rose pour le label en état normal */
-.MuiInputLabel-root {
-  color: #f87171;
-}
-
-/* Modifier l'effet de survol pour le Select */
-/* Modifier la couleur de la bordure au survol pour le Select */
+/* Couleur de la bordure au survol pour Select */
 .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
   border-color: #f87171; /* Couleur rose foncé pour la bordure au survol */
 }
