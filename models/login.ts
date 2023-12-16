@@ -1,6 +1,8 @@
 import { Schema, model, models } from 'mongoose';
 import { Ilogin } from '@/types/types';
 
+// Schema login pour les connexions 
+
 const loginSchema = new Schema<Ilogin>({
   email: {
     type: String,
@@ -18,8 +20,8 @@ const loginSchema = new Schema<Ilogin>({
   },
   role: {
     type: String,
-    enum: ['user', 'admin'],
-    default: 'user',
+    enum: ['user', 'admin'],// soit user ou admin 
+    default: 'user',// par default a l'inscription 
   },
 });
 
@@ -31,6 +33,7 @@ loginSchema.pre('validate', function (next) {
   next();
 });
 
+// Vérifiez si le modèle a déjà été existant sinon créé le models dans la DB
 const Login = models.login || model<Ilogin>('login', loginSchema);
 
 export default Login;

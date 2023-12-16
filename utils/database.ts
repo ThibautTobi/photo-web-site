@@ -1,4 +1,3 @@
-// Importation des modules nécessaires depuis la bibliothèque mongoose.
 import mongoose, { ConnectOptions } from 'mongoose';
 
 // Variable pour suivre l'état de la connexion à MongoDB.

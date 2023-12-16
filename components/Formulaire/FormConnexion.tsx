@@ -3,7 +3,7 @@ import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Grid, Button, TextField } from '@mui/material';
-//import Alert from '@mui/material/Alert';
+import Alert from '@mui/material/Alert';
 import { FormData } from '@/types/types';
 
 export default function FormConnexion() {
@@ -21,11 +21,13 @@ console.log('status : ', status)
       password: data.password,
     });
 
-console.log('resultat recu : ', result)
-
-    if (result?.error) {
-      alert(result.error);
-    } 
+      console.log('resultat recu : ', result)
+      if (result?.error) {
+        return <Alert severity="error">{result.error}</Alert>;
+      }
+    // if (result?.error) {
+    //   alert(result.error);
+    // } 
     // else {
     // //   router.push('/Login');
 

@@ -1,5 +1,6 @@
 import { type } from "os";
 
+/********** Type TypeScript Global NextJs */
 export interface FormData {
     identifiant: string,
     password: string,

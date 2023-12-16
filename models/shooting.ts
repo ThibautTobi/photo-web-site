@@ -1,8 +1,10 @@
 import { Ishooting } from '@/types/types';
 import { Schema, model, models } from 'mongoose';
 
+// Schema pour un Shooting (exemple : utiliser pour la selection des photos ajouter dans l'espace admin pour le client )
+
 const ShootingSchema = new Schema<Ishooting>({
-     // _id: ObjectID,
+
     title : {
         type : String ,
         required : true
@@ -13,8 +15,8 @@ const ShootingSchema = new Schema<Ishooting>({
     }]
 }
 )
+
+// Vérifiez si le modèle a déjà été existant sinon créé le models dans la DB
 const Shooting = models.Shooting || model<Ishooting>('Shooting', ShootingSchema);
 
 export default Shooting;
-
-

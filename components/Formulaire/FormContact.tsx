@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import { TextField, Button, FormControlLabel, Checkbox, Select, MenuItem, InputLabel, FormControl,RadioGroup, Radio } from '@mui/material';
 import ReCaptchaComponent from '@/components/ReCaptcha';
 
+
 interface FormData {
   civilite: string;
   prenom: string;
@@ -92,7 +93,7 @@ async function onSubmit (data : FormData) {
         control={control}
         defaultValue=""
         render={({ field }) => (
-          <RadioGroup {...field}>
+          <RadioGroup {...field} className='flex flex-row justify-around'>
             <FormControlLabel value="Mme." control={<Radio />} label="Mme." />
             <FormControlLabel value="Mlle." control={<Radio />} label="Mlle." />
             <FormControlLabel value="Mr." control={<Radio />} label="Mr." />
@@ -152,7 +153,12 @@ async function onSubmit (data : FormData) {
           <TextField {...field} label="Message" variant="outlined" error={!!errors.message} helperText={errors.message?.message} multiline rows={4} fullWidth margin="normal" />
         )}
       />
-      <ReCaptchaComponent onChange={handleRecaptchaChange} />
+      
+      
+      {/* <ReCaptchaComponent onChange={handleRecaptchaChange} />
+       */}
+      
+      
       {/* base recaptcha v3 */}
       {/* <div className="g-recaptcha" data-sitekey={process.env.RECAPTCHA_KEY} data-action="LOGIN"></div> */}
       <Button type="submit" variant="contained" color="primary" fullWidth>

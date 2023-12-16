@@ -8,9 +8,10 @@ export default function Contact () {
             <Head>
                 <script src="https://www.google.com/recaptcha/api.js" async defer ></script>
             </Head>
-            <h2>Contact</h2>
-            <FormulaireContact />
-            
+            <div className="p-8 bg-transparent border-8 rounded-md shadow-lg ">
+                <h2>Vous pouvez Nous Contacter ici </h2>
+                <FormulaireContact />
+            </div>
         </>
     )
 }

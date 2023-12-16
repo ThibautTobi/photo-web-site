@@ -8,6 +8,7 @@ import OriginalSVG from "@/components/Layout/lame_spirale/original_test";
 import SquareSVG from "@/components/Layout/lame_spirale/square";
 import ModifiedSquareSVG from "@/components/Layout/lame_spirale/squareModif";
 
+
 // import Parallax from "@/components/Layout/ParallaxEffect";
 
 //import { useSession } from 'next-auth/react';
@@ -30,10 +31,14 @@ export default async function Home() {
     <>
         <h1>Bienvenue à Notre Agence de Photographie</h1>
         <p>Découvrez notre monde à travers nos photos</p>
+       
         {/* <Parallax images={images} /> */}
         {/* <div>LoL ceci est ma page acceuil</div>
         <p className='m-10 bg-slate-400'> test </p> */}
-        <h2>Obturateur</h2>
+        
+        {/* <p>test madification lame</p> */}
+
+        {/* <h2>Obturateur</h2>
         <Obturateur />
         <h2>Square SVG</h2>
         <SquareSVG />
@@ -46,7 +51,7 @@ export default async function Home() {
         <h2>Original SVG</h2>
         <OriginalSVG />
         <h2>Modified SVG</h2>
-        <ModifiedSVG />
+        <ModifiedSVG /> */}
     </>
   )
 }

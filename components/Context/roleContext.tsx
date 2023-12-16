@@ -5,6 +5,8 @@
 // import { RoleProviderProps } from '@/types/types';
 // import { NextRequest } from 'next/server';
 
+/************************** gestion d'accés role par récupération dans le cookie de connexion */
+
 // const RoleContext = createContext<RoleContextType | undefined>(undefined);
 
 // export function RoleProvider({ children }: RoleProviderProps) {

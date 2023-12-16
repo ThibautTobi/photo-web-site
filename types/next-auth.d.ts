@@ -1,5 +1,6 @@
 import "next-auth";
 
+/********** Type TypeScript  NextAuth */
 declare module "next-auth" {
   // interface User {
   //   role?: string;

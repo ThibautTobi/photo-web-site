@@ -3,7 +3,10 @@ import './globals.css';
 import type { Metadata } from 'next';
 import Header from '@/components/Layout/header';
 import Footer from '@/components/Layout/footer';
+/***************************** utilisation d'un contexte pour la gestion connections des controles des roles sans NextAuth */
 //import { RoleProvider } from '@/components/Context/roleContext';
+/***************************** utilisation d'un contexte pour la gestion connections des controles des roles avec
+ *  NextAuth */
 // import { Session } from 'next-auth';
 // import {  getSession,SessionProvider } from "next-auth/react"
 
@@ -23,13 +26,13 @@ export default async function RootLayout({ children }
     //const session = await getServerSession();
   return (
     <html lang="fr">
-      <body>
+      <body className='bg-gradient-fond'>
         {/* <SessionProvider session={session}> */}
         <SessionProvider >
           {/* <RoleProvider> */}
             <Header />
               <main className="flex min-h-screen flex-col items-center justify-between p-24">
-                {/*   radial-gradient(at left top, rgb(255, 255, 255), rgb(244, 114, 182), rgb(136, 19, 55)) */}
+                {/* bg-gradient-fond */}
                 {children}
               </main>
             <Footer />
