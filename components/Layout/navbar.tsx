@@ -38,6 +38,36 @@ export default function Navbar () {
                 router.push('/');
             };
 
+
+
+//              // Dans le composant où vous avez des éléments interactifs
+// const MyInteractiveComponent: React.FC = () => {
+//   const handleMouseOver = () => {
+//     const cursor = document.getElementById('custom-cursor');
+//     if (cursor) {
+//       cursor.style.transform = 'scale(1.5)';
+//       cursor.style.backgroundColor = 'lightpink';
+//     }
+//   };
+
+//   const handleMouseOut = () => {
+//     const cursor = document.getElementById('custom-cursor');
+//     if (cursor) {
+//       cursor.style.transform = 'scale(1)';
+//       cursor.style.backgroundColor = 'darkpink';
+//     }
+//   };
+
+//   return (
+//     <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+//       {/* Contenu de votre composant */}
+//     </div>
+//     );
+//   };
+  
+//   export default MyInteractiveComponent;
+  
+           
     return(
         <>
             <nav className="">
