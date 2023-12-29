@@ -12,6 +12,7 @@ import Footer from '@/components/Layout/footer';
 
 //import { getServerSession } from "next-auth";
 import SessionProvider from "@/utils/SessionProvier";
+import CustomCursor from '@/components/Cursor/CustomCursor';
 
 export const metadata: Metadata = {
   title: 'site-photo',
@@ -30,6 +31,7 @@ export default async function RootLayout({ children }
         {/* <SessionProvider session={session}> */}
         <SessionProvider >
           {/* <RoleProvider> */}
+            <CustomCursor />
             <Header />
               <main className="flex min-h-screen flex-col items-center justify-between p-24">
                 {/* bg-gradient-fond */}

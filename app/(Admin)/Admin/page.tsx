@@ -30,14 +30,17 @@ const session : any = await getServerSession(authOptions);
     }
 
     return(
-        <>
+        <div className="flex flex-col justify-around items-center">
             <h2>Administration</h2>
-            <p className="m-6"> Ajout de photo dans la partie photos du site</p>
-            <AddPhoto />
-            <p className="m-6"> Ajout des photos d un shootings dans l espace du client</p>
-            <AddShooting />
-            <p className="m-6"> Ajout de nouveaux client cotés administration avec verification admin si la route </p>
-            <AddClient />
-        </>
+            <div className="p-8 bg-transparent border-8 rounded-md shadow-lg m-8">
+                <AddPhoto />
+            </div>
+            <div className="p-8 bg-transparent border-8 rounded-md shadow-lg m-8">
+                <AddShooting />
+            </div>
+            <div className="p-8 bg-transparent border-8 rounded-md shadow-lg m-8">
+                <AddClient />
+            </div>
+        </div>
     )
 }

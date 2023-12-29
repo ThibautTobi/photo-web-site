@@ -24,14 +24,14 @@ export default function RgpdModal({ open , handleClose }: RgpdModalProps) {
                     <li>Comment les données sont stockées et sécurisées: sur une base de donnée cloud</li>
                     <li>Les droits des utilisateurs concernant leurs données</li>
                     <li>Comment les utilisateurs peuvent accéder à leurs données ou demander leur suppression</li>
-                    <li>: a tous moments contacter nous pour supprimer votre adresse de la base de donnée ou quand vous recever un email sur le lui fait pour</li>
+                    <li>- a tous moments contacter nous pour supprimer votre adresse de la base de donnée ou quand vous recever un email sur le lui fait pour</li>
                 </ul>
                 <p>
                     Assurez-vous que les informations fournies sont complètes et conformes aux exigences du RGPD.
                 </p>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>Fermer</Button>
+                <Button onClick={handleClose} className='text-white'>Fermer</Button>
             </DialogActions>
         </Dialog>
     );

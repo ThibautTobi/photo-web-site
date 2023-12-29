@@ -6,6 +6,56 @@
   background-color: white;
 } */
 
+
+/***********************************
+   Personnaliser Cursor Pointer
+***********************************/
+body,a,input,input:hover,button,textarea,.MuiButton-root,.MuiFormControlLabel-root,.MuiMenuItem-root,.MuiSelect-root *,.MuiSelect-select {
+  cursor: none;
+}
+
+/* 
+#custom-cursor {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff4081;
+  position: fixed;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+} */
+
+/* Style de base du curseur personnalisé */
+#custom-cursor {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff4081; /* Couleur rose */
+  position: fixed;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.2s ease, width 0.2s ease, height 0.2s ease;
+}
+
+/* Style du curseur lors du survol des liens */
+.cursor-link-hover {
+  color: #ff4081; /* Couleur pour le survol des liens */
+  opacity: 0.5; /* Opacité pour le survol des liens */
+  width: 14px; /* Agrandir le curseur de 4px pour le survol des liens */
+  height: 14px; /* Agrandir le curseur de 4px pour le survol des liens */
+}
+
+/* Style du curseur lors du survol des inputs */
+.cursor-link-hover {
+  color: gray; /* Couleur pour le survol des inputs */
+  width: 8px; /* Réduire le curseur de 2px pour le survol des inputs */
+  height: 8px; /* Réduire le curseur de 2px pour le survol des inputs */
+}
+
+
 /***********************************
    Personnaliser TextField
 ***********************************/
