@@ -115,7 +115,7 @@ export default function AddClient() {
           {loading ? 'Loading...' : 'Création User'} 
         </Button>
         {successMessage && <p className='bg-white text-green-600 rounded-md p-4 border-2 border-pink-500 mt-4 font-bold'>{successMessage}</p>}
-        {error && <p className='bg-white text-red-700 rounded-md p-4 border-2 border-pink-500 mt-4 font-bold' >{error}</p>}
+        {error && <p className='bg-white text-red-600 rounded-md p-4 border-2 border-pink-500 mt-4 font-bold' >{error}</p>}
       </form>
     </div>
   );
