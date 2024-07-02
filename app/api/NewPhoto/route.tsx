@@ -342,7 +342,7 @@ import { getSession } from "next-auth/react";
 // }
 
 
-/**************************** revu 1 voir verification role 'admin' */
+/**************************** revu 1 voir verification role "Admin" */
 
 export async function POST(req: NextRequest) {
     try {
