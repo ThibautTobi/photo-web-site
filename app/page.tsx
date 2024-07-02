@@ -1,12 +1,16 @@
 // 'use client'
 
-import CircleSVG from "@/components/Layout/lame_spirale/circle";
-import ModifiedCircleSVG from "@/components/Layout/lame_spirale/circleModif";
-import ModifiedSVG from "@/components/Layout/lame_spirale/modifier_test";
-import Obturateur from "@/components/Layout/lame_spirale/obturateur";
-import OriginalSVG from "@/components/Layout/lame_spirale/original_test";
-import SquareSVG from "@/components/Layout/lame_spirale/square";
-import ModifiedSquareSVG from "@/components/Layout/lame_spirale/squareModif";
+// import CircleSVG from "@/components/Layout/lame_spirale/circle";
+// import ModifiedCircleSVG from "@/components/Layout/lame_spirale/circleModif";
+// import ModifiedSVG from "@/components/Layout/lame_spirale/modifier_test";
+// import Obturateur from "@/components/Layout/lame_spirale/obturateur";
+// import OriginalSVG from "@/components/Layout/lame_spirale/original_test";
+// import SquareSVG from "@/components/Layout/lame_spirale/square";
+// import ModifiedSquareSVG from "@/components/Layout/lame_spirale/squareModif";
+import avatar from "@/public/avatar-neutre.svg";
+import Image from "next/image";
+import { photographes } from '@/components/PresentationPhotographe/data-photographe';
+import Photographe from '@/components/PresentationPhotographe/Photographe';
 
 
 // import Parallax from "@/components/Layout/ParallaxEffect";
@@ -31,6 +35,13 @@ export default async function Home() {
     <>
         <h1>Bienvenue à Notre Agence de Photographie</h1>
         <p>Découvrez notre monde à travers nos photos</p>
+
+        <section>
+          <h2>Présentations des différents Photographes</h2>
+          {photographes.map((photo, index) => (
+            <Photographe key={index} title={photo.title} image={photo.image} description={photo.description} />
+          ))}
+        </section>
        
         {/* <Parallax images={images} /> */}
         {/* <div>LoL ceci est ma page acceuil</div>
@@ -100,3 +111,5 @@ function MyComponent() {
 
 
 */
+
+

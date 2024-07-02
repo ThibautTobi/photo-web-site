@@ -3,8 +3,10 @@ import Login from '@/models/login';
 import { NextResponse, NextRequest } from 'next/server';
 import jwt from 'jsonwebtoken';
 import { JwtPayload } from '@/types/types';
+/********************************************************************************************************************************** */
+/******************* verification de role admin dans les cookies pour autoriser une requette  / sans utiliser NextAuth *************/
+/******************************************************************************************************************************** */
 
-/******************************** verification de role admin dans les cookies pour autoriser une requette / sans utiliser NextAuth */
 export async function adminAuth(req : NextRequest) {
   // Récupération et vérification du cookie authToken
   const token = req.cookies.get('authToken');

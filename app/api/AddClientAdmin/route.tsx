@@ -8,8 +8,9 @@ import { JwtPayload } from '@/types/types';
 import { adminAuth } from '@/middleware/AdminAuth';
 import { getSession } from 'next-auth/react';
 
-/*************************************** revue 1 : probleme deuxiéme verification role avec next auth */
-
+/***************************************************************************************************** ****************/
+/*************************************** revue 1 : probleme deuxiéme verification role avec next auth ****************/
+/**************************************************************************************************** ***************/
 
 ////////////// Fonction pour vérifier l'autorisation avec le useContext et les role dans les cookies
 // async function verifyAuthorization(req) {
@@ -172,23 +173,153 @@ import { getSession } from 'next-auth/react';
 //     }
 // }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export async function POST (req: NextRequest) {
+// export async function POST (req: NextRequest) {
     
-    console.log('body de la requete :',req.body)
+//     //console.log('body de la requete :',req.body)
+//     //vérification si la methode de requete est la bonne.
+//     if (req.method !== 'POST') {
+//         return new NextResponse('Mauvaise méthode', { status: 500 });
+//     }
+// /************************** deuxiéme verification cotés serveur du role admin / probléme compatibiliter */
+//     // Récupération de la session de l'utilisateur
+//      //const session = await getSession({req});
+
+//         //console.log('session :', session)
+//     // Vérifier si l'utilisateur est connecté et a le rôle 'admin'
+//         // if (!session || session.user.role !== 'admin') {
+//         //     return new NextResponse('Accès refusé', { status: 403 });
+//         // }
+
+
+//         try {
+    
+//             await connectToDB();
+    
+//             const { name, password } = await req.json();
+    
+//             //console.log(name,password)
+
+//             // Votre schéma de validation
+//             const validationSchema = yup.object({
+//                 name: yup.string().required('Le nom est requis'),
+//                 password: yup.string()
+//                     .min(8, 'Le mot de passe doit avoir au moins 8 caractères')
+//                     .matches(/\d/, 'Le mot de passe doit contenir au moins un chiffre')
+//                     .matches(/[!@#$%^&*()\-_"'{}[\]:;<>,.?~\\/+|=]/, 'Le mot de passe doit contenir au moins un caractère spécial')
+//                     .required('Le mot de passe est requis'),
+//                 });
+    
+//             // Vérification des données avec Yup
+//             // Protections contres Les injections SQL et XSS 
+//             await validationSchema.validate({ name, password });
+    
+    
+//             // Vérification de l'unicité du nom d'utilisateur
+//             const existingUser = await Login.findOne({ name: name });
+//             // seul l'administrateur voi la reponse donc réponse moin generique !
+//                 if (existingUser) {
+//                     return NextResponse.json({ error : `Le nom d'utilisateur est déjà pris.` }, { status: 400 });
+//                 }
+            
+//             // Validation des entrées
+//                 if (!name || typeof name !== 'string' || !password || typeof password !== 'string') {
+//                     return NextResponse.json("Nom d'utilisateur ou mot de passe invalide", { status: 400 });
+//                 }
+    
+//             // Hashage des mots de passe
+//             const hashedPassword = await bcrypt.hash(password, 10);
+    
+//             //création Client dans la DB
+//             const newLogin = new Login({ name, password: hashedPassword });
+//                 await newLogin.save();
+    
+//             return NextResponse.json({ message: 'Utilisateur créé avec succès' }, { status: 201 });
+    
+//         } catch (error) {
+//             if (error instanceof jwt.JsonWebTokenError) {
+//                 return new NextResponse(JSON.stringify({ error: "Token invalide" }), { status: 403 });
+//             }
+//             // Journalisation
+//             console.error("Erreur lors de la création de l'utilisateur:", error);
+    
+//             return NextResponse.json("Une erreur est survenue lors de la création de l'utilisateur.", { status: 500 });
+//         }
+//     }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/******************************************************************* */
+/**************************** test compatibiliter req et next auth  */
+/***************************************************************** */
+
+// export async function POST(req, res) {
+
+//     console.log('requette :' req)
+//     if (req.method !== 'POST') {
+//         return res.status(405).json({ message: 'Méthode non autorisée' });
+//     }
+
+//     // Récupération de la session de l'utilisateur
+//     const session = await getSession({ req });
+
+//     console.log('session next auth :',session)
+//     if (!session || session.user.role !== 'admin') {
+//         return res.status(403).json({ message: 'Accès refusé' });
+//     }
+
+//     try {
+//         await connectToDB();
+//         const { name, password } = req.body; // Utilisez req.body pour accéder au corps de la requête
+
+//         // Schéma de validation Yup
+//         const validationSchema = yup.object({
+//             name: yup.string().required('Le nom est requis'),
+//             password: yup.string()
+//                 .min(8, 'Le mot de passe doit avoir au moins 8 caractères')
+//                 .matches(/\d/, 'Le mot de passe doit contenir au moins un chiffre')
+//                 .matches(/[!@#$%^&*()\-_"'{}[\]:;<>,.?~\\/+|=]/, 'Le mot de passe doit contenir au moins un caractère spécial')
+//                 .required('Le mot de passe est requis'),
+//         });
+
+//         await validationSchema.validate({ name, password });
+
+//         const existingUser = await Login.findOne({ name: name });
+//         if (existingUser) {
+//             return res.status(400).json({ error: `Le nom d'utilisateur est déjà pris.` });
+//         }
+
+//         if (!name || typeof name !== 'string' || !password || typeof password !== 'string') {
+//             return res.status(400).json({ message: "Nom d'utilisateur ou mot de passe invalide" });
+//         }
+
+//         const hashedPassword = await bcrypt.hash(password, 10);
+
+//         const newLogin = new Login({ name, password: hashedPassword });
+//         await newLogin.save();
+
+//         return res.status(201).json({ message: 'Utilisateur créé avec succès' });
+//     } catch (error) {
+//         console.error("Erreur lors de la création de l'utilisateur:", error);
+//         return res.status(500).json({ message: "Une erreur est survenue lors de la création de l'utilisateur." });
+//     }
+// }
+
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { verifyAdmin } from '@/middleware/verifAdmin';
+
+export async function POST (req: NextApiRequest, res: NextApiResponse) {
+    
+    //console.log('body de la requete :',req.body)
     //vérification si la methode de requete est la bonne.
     if (req.method !== 'POST') {
-        return new NextResponse('Mauvaise méthode', { status: 500 });
-    }
-/************************** deuxiéme verification cotés serveur du role admin / probléme compatibiliter */
-    // Récupération de la session de l'utilisateur
-     //const session = await getSession({req});
+        res.status(405).json({ message: 'Mauvaise méthode' });
+        return;
+      }
 
-        //console.log('session :', session)
-    // Vérifier si l'utilisateur est connecté et a le rôle 'admin'
-        // if (!session || session.user.role !== 'admin') {
-        //     return new NextResponse('Accès refusé', { status: 403 });
-        // }
+         const isAdmin = await verifyAdmin(req, res);
+         if (!isAdmin) return;
 
 
         try {
@@ -197,7 +328,8 @@ export async function POST (req: NextRequest) {
     
             const { name, password } = await req.json();
     
-            console.log(name,password)
+            //console.log(name,password)
+
             // Votre schéma de validation
             const validationSchema = yup.object({
                 name: yup.string().required('Le nom est requis'),
@@ -228,6 +360,7 @@ export async function POST (req: NextRequest) {
             // Hashage des mots de passe
             const hashedPassword = await bcrypt.hash(password, 10);
     
+            //création Client dans la DB
             const newLogin = new Login({ name, password: hashedPassword });
                 await newLogin.save();
     

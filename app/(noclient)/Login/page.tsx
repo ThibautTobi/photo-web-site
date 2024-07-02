@@ -17,11 +17,19 @@ export default async function Login(){
   //     return <p>Chargement...</p>;
   //   }
   
+  // if (status === 'authenticated') {
+  //   // Redirection après authentification réussie
+  //    router.push('/');
+  //   console.log(`status c'est good :`, status)
+  //   // return null;
+  // }
+    console.log("qu'est que c'est session",session)
     if (!session) {
       console.log("Non connecté");
       // router.push("/Login"); 
     } else {
       console.log("Connecté en tant que", session.user, session.expires);
+      //session.expires === undefined ?????
       if (session.user && session.user.role) {
         console.log('user role :', session.user.role);
       }
@@ -31,9 +39,7 @@ export default async function Login(){
 return(
         <div>
           <FormConnexion />
-          <div></div>
-          <p>ou</p>
-          <div></div>
+          <p className='m-6 text-lg text-rose-500 border-2 border-rose-500 text-center rounded-xl w-14 h-8 bg-white'>ou</p>
           <FormInscription />
         </div>
       )
@@ -221,4 +227,39 @@ return(
 //       </form>
 //     </div>
 //   );
+// }
+
+
+
+/***********************************************************  a modifier si besoin et intégrer pour une verification serveur plus adapter  */
+
+// // Dans votre page Login
+// export default function Login({ session }) {
+//   if (session) {
+//     // Redirection côté serveur ou logique conditionnelle basée sur la session
+//   }
+
+//   return (
+//     <div>
+//       <FormConnexion />
+//       <p className='m-6 text-lg text-rose-500 ...'>ou</p>
+//       <FormInscription />
+//     </div>
+//   );
+// }
+
+// // Récupération de la session côté serveur
+// export async function getServerSideProps(context) {
+//   const session = await getServerSession(context.req, context.res, authOptions);
+//   if (session) {
+//     return {
+//       redirect: {
+//         destination: '/',
+//         permanent: false,
+//       },
+//     };
+//   }
+//   return {
+//     props: { session },
+//   };
 // }

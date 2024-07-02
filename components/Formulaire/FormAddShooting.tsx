@@ -85,7 +85,7 @@ export function AddShooting() {
                     fullWidth
                     margin="normal"
                 />
-                <Input
+                {/* <Input
                     inputRef={fileInputRef}
                     type="file"
                     className='m-4'
@@ -93,7 +93,17 @@ export function AddShooting() {
                     multiple
                     required
                     fullWidth
-                    margin="undefined"
+                    margin="none"
+                /> */}
+                <Input
+                    inputRef={fileInputRef}
+                    type="file"
+                    className='m-4'
+                    onChange={handleFileChange}
+                    inputProps={{ multiple: true }} // Ajouter ici
+                    required
+                    fullWidth
+                    margin="dense"
                 />
                 <Button type="submit" variant="contained" color="primary" className='m-4'>Envoyer</Button>
             </form>

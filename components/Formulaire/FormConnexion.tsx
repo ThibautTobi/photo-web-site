@@ -1,17 +1,22 @@
 'use client'
 import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
+//import { useRouter } from 'next/router';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Grid, Button, TextField } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import { FormData } from '@/types/types';
 
+/********************************************************************************************************************************/
+/*************************************************** revu 1 ********************************************************************/
+/******************************************************************************************************************************/
+
+
 export default function FormConnexion() {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
- // const router = useRouter();
-  const { status } = useSession();
+//    const router = useRouter();
+//     const { status } = useSession();
   
-console.log('status : ', status)
+// console.log('status : ', status)
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     console.log('data envoyer : ', data)
@@ -22,7 +27,9 @@ console.log('status : ', status)
     });
 
       console.log('resultat recu : ', result)
+
       if (result?.error) {
+        // Affichage de l'erreur de connexion
         return <Alert severity="error">{result.error}</Alert>;
       }
     // if (result?.error) {
@@ -34,12 +41,15 @@ console.log('status : ', status)
     // }
   };
 
-  if (status === 'authenticated') {
-    // router.push('/');
-    console.log(`status c'est good :`, status)
-    return null;
-  }
-
+//////////////////////////////////////////// intégrer la gestion d'un matcher dans le middleware 
+//////////////////////////////////////////////////////////////////////////////////////// probléme de use router
+  // if (status === 'authenticated') {
+  //   // Redirection après authentification réussie
+  //    router.push('/');
+  //   console.log(`status c'est good :`, status)
+  //   // return null;
+  // }
+/////////////////////////////////////////////////////////////////////////////////////////
     const handleSignInGoogle = () => {
         signIn('google', { callbackUrl: '/' });
     };

@@ -7,6 +7,10 @@ import * as yup from 'yup';
 import { TextField, Button, FormControlLabel, Checkbox, Select, MenuItem, InputLabel, FormControl,RadioGroup, Radio } from '@mui/material';
 import ReCaptchaComponent from '@/components/ReCaptcha';
 
+/****************************************************************************************************************************** */
+/********************************************************* revu 1  *************************************************************/
+/******************************************************************************************************************************/
+
 
 interface FormData {
   civilite: string;
@@ -31,45 +35,71 @@ const Formschema = yup.object({
 
 export default function FormulaireContact (){
   const [recaptchaToken, setRecaptchaToken] = useState('');
-console.log('recaptcha :', recaptchaToken)
+  console.log('recaptcha :', recaptchaToken)
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  // a intégrer
+  // const [loading, setLoading] = useState(false);
+  // const [feedbackMessage, setFeedbackMessage] = useState('');
+  // const [isError, setIsError] = useState(false);
+
+  const { control, handleSubmit,reset, formState: { errors } } = useForm({
     resolver: yupResolver(Formschema)
   });
 
 async function onSubmit (data : FormData) {
     console.log(data);
+    // a intégrer
+    // setLoading(true);
+    // setIsError(false);
+    // setFeedbackMessage('');
+
     // Ajoutez le token reCAPTCHA aux données du formulaire
     const formDataWithCaptcha = { ...data, recaptchaToken };
     console.log("Form Data with reCAPTCHA Token:", formDataWithCaptcha);
+
     // Gestion de l'envoi des données connecter a l'api 
     try {
       // Envoi des données du formulaire à l'API
       const response = await fetch('/api/PostFormulaireContact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(formDataWithCaptcha),
       });
   
       // Traitement de la réponse
       if (response.ok) {
+        // a intégrer
+        //setFeedbackMessage('Votre message a été envoyé avec succès.');
+
         // La requête a réussi
         const responseData = await response.json();
         console.log('Réponse :', responseData);
         // Vous pouvez ici gérer les actions après le succès, par exemple :
         // Afficher un message de succès, réinitialiser le formulaire, etc.
+
+        reset(); 
       } else {
         // La requête a échoué
         console.error('Erreur lors de l\'envoi du formulaire:', response.status);
         // Gérer l'affichage d'une erreur à l'utilisateur
+
+        // a intégrer
+        // setIsError(true);
+        // setFeedbackMessage('Erreur lors de l\'envoi du formulaire.');
       }
     } catch (error) {
       // Erreur lors de l'envoi de la requête
       console.error('Erreur lors de l\'envoi du formulaire:', error);
       // Gérer l'affichage d'une erreur à l'utilisateur
+
+      //a intégrer
+      // setIsError(true);
+      // setFeedbackMessage('Erreur lors de l\'envoi du formulaire.');
     }
+    // a intégrer
+    // finally {
+    //   setLoading(false);
+    // }
   };
 
   const handleRecaptchaChange = (token: string | null) => {
@@ -98,7 +128,7 @@ async function onSubmit (data : FormData) {
             <FormControlLabel value="Mlle." control={<Radio />} label="Mlle." />
             <FormControlLabel value="Mr." control={<Radio />} label="Mr." />
           </RadioGroup>
-            )}
+        )}
       />
       <Controller
         name="prenom"
@@ -153,7 +183,13 @@ async function onSubmit (data : FormData) {
           <TextField {...field} label="Message" variant="outlined" error={!!errors.message} helperText={errors.message?.message} multiline rows={4} fullWidth margin="normal" />
         )}
       />
-      
+      {/* a integrer */}
+      {/* Message de feedback */}
+      {/* {feedbackMessage && (
+        <div style={{ color: isError ? 'red' : 'green', marginTop: '10px' }}>
+          {feedbackMessage}
+        </div>
+      )} */}
       
       {/* <ReCaptchaComponent onChange={handleRecaptchaChange} />
        */}
@@ -161,9 +197,52 @@ async function onSubmit (data : FormData) {
       
       {/* base recaptcha v3 */}
       {/* <div className="g-recaptcha" data-sitekey={process.env.RECAPTCHA_KEY} data-action="LOGIN"></div> */}
-      <Button type="submit" variant="contained" color="primary" fullWidth>
+      <Button type="submit" variant="contained" color="primary" fullWidth 
+      // a integrer
+        // disabled={loading}
+        >
+        {/* a integrer */}
+        {/* {loading ? <CircularProgress size={24} /> : 'Envoyer'} */}
         Envoyer
       </Button>
     </form>
   );
 };
+
+
+
+
+
+
+/*************** a ajouter sanitisation */
+
+
+//import DOMPurify from 'dompurify';
+
+// function MyForm() {
+//   const { register, handleSubmit } = useForm();
+
+//   const onSubmit = (data) => {
+//     // Sanitisation des données
+//     const sanitizedData = {
+//       ...data,
+//       myTextField: DOMPurify.sanitize(data.myTextField)
+//     };
+
+//     console.log(sanitizedData);
+//     // Envoyez les données sanitizées à votre serveur ou traitez-les davantage ici
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit(onSubmit)}>
+//       <input
+//         name="myTextField"
+//         ref={register}
+//         // Autres attributs comme 'required', 'pattern', etc.
+//       />
+//       <button type="submit">Submit</button>
+//     </form>
+//   );
+// }
+
+// export default MyForm;

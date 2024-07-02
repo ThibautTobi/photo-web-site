@@ -112,7 +112,8 @@ Conformité RGPD : Si vous opérez ou envoyez des e-mails à des personnes dans 
 //     );
 // }
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////// ajouter validateur input (voir pour créé un middleware et inserer avec yup )
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState('');
@@ -141,13 +142,15 @@ export default function NewsletterSignup() {
           if (response.ok) {
               setMessage('Inscription réussie. Merci de vous être abonné à notre newsletter !');
               setEmail('');
-          } else {
-              throw new Error('Une erreur est survenue lors de l\'inscription.');
-          }
+            } else {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Une erreur est survenue lors de l\'inscription.');
+            }
       } catch (error) {
           setIsError(true);
           setMessage('Erreur lors de l\'inscription à la newsletter.');
       }
+      
   };
 
   return (

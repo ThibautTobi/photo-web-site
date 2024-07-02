@@ -69,12 +69,7 @@
 
 
 
-
-
-
-
-
-import { useRouter } from 'next/router';
+import { useParams,useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { connectToDB } from '@/utils/database';
 import Image from 'next/image';
@@ -82,34 +77,56 @@ import Photo from '@/models/photos';
 import { Iphotos } from '@/types/types';
 import { string } from 'yup';
 
+/**** attraper coter serveur les paramettres ou rechercher avec searchParams
+
+  export default function PhotoPage({params} : any) {}
+  return (
+    <div>le paramétre :{params.id}</div>
+  )
+}
+ 
+ */
+
 export default function PhotoPage() {
-  const router = useRouter();
+
   const [photo, setPhoto] = useState(null);
+  const params = useParams();
+  const router = useRouter();
 
-console.log(photo)
+  console.log(params)
+  console.log(params.id)
 
-  useEffect(() => {
-    async function fetchPhoto() {
-      if (!router.isReady) return;
+
+  // console.log(photo)
+
+  // useEffect(() => {
+  //   async function fetchPhoto() {
+  //     if (!router.isReady) return;
       
-    //   const id = router.query.id[0];
-    const id = router.query.id;
-      await connectToDB();
-      const photoData = await Photo.findOne({ _id: id });
+  //   //   const id = router.query.id[0];
+  //   const id = router.query.id;
+  //     await connectToDB();
+  //     const photoData = await Photo.findOne({ _id: id });
 
-      setPhoto(photoData);
-    }
+  //     setPhoto(photoData);
+  //   }
 
-    fetchPhoto();
-  }, [router.isReady, router.query.id]);
+  //   fetchPhoto();
+  // }, [router.isReady, router.query.id]);
 
   if (!photo) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <div>Loading...{params.id}</div>
+        <div onClick={()=> router.push("/")}>Retour a la page acceuil</div>
+      </div>
+    )
   }
 
   return (
     <div>
         <h1>{photo}</h1>
+        <div onClick={()=> router.push("/")}>Retour a la page acceuil</div>
         {/* <Image src={photo.imageUrl} alt={photo.title} />
         <p>{photo.description}</p> */}
         {/* autres détails de la photo */}

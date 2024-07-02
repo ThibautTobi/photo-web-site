@@ -5,8 +5,13 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Button, TextField } from '@mui/material';
 
-/**** revue 1 */
+
+/****************************************************************************************************************************** */
+/********************************************************* revu 1  *************************************************************/
+/******************************************************************************************************************************/
+
 /******************************* Création par l'admin d'un utilisateur avec Role USER ***************************************************************/
+
 export default function AddClient() {
   //Etat de chargement loading
   const [loading, setLoading] = useState(false);
@@ -28,7 +33,7 @@ export default function AddClient() {
       // Le mot de passe doit contenir au moins un chiffre
       .matches(/\d/, 'Le mot de passe doit contenir au moins un chiffre')
       // Le mot de passe doit contenir un caractère spécial
-      .matches(/[!@#$%^&*()\-_"'{}[\]:;<>,.?~\\/+|=]/, 'Le mot de passe doit contenir au moins un caractère spécial')
+      .matches(/[!@#$%^&*()\-_"'{}[\]:;<>,.?~\\/+|=]/, 'Le mot de passe doit contenir entre 8 et 26 caractères au moins un caractère spécial et un chiffre')
       // Le champ "password" est obligatoire
       .required('Le mot de passe est requis'),
   });
@@ -60,7 +65,7 @@ export default function AddClient() {
           setSuccessMessage('Client ajouté avec succès!');
           formik.resetForm();
         } else {
-          // Sinon, récupération et affichage du message d'erreur renvoyé par l'API
+          // Sinon, récupération et affichage du message d'erreur renvoyé par l'API ou message défini
           const errorData = await response.json();
           setError(errorData.message || 'Erreur lors de la connexion.');
         }
@@ -104,8 +109,7 @@ export default function AddClient() {
         />
         {/* ou Affichage de l'erreur de validation pour le champ "password" */}
         {/* {formik.touched.password && formik.errors.password ? <div className='font-bold text-red-600 bg-gray-500 m-2'>{formik.errors.password}</div> : null} */}
-        
-        {/* Explication des exigences pour le mot de passe */}
+
         <p className="text-sm text-red-400 m-2">
           Le mot de passe doit avoir au moins 8 caractères, contenir un chiffre et un caractère spécial.
         </p> 

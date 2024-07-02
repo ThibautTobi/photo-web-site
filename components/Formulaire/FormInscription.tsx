@@ -255,7 +255,7 @@ console.log('response : ',response)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto bg-slate-100 p-6 rounded shadow-lg">
-      <h2 className="text-xl font-bold mb-4 text-center">Inscription</h2>
+      <h2 className="text-xl font-bold mb-4 text-center text-red-500">Inscription</h2>
       {error && <p className="text-red-500 text-center">{error}</p>}
   
       <Grid container spacing={2}>
